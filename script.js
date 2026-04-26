@@ -1,46 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Number Counter Animation
-    const stats = document.querySelectorAll('.stat');
-    stats.forEach(stat => {
-        const target = parseInt(stat.getAttribute('data-target'));
-        let count = 0;
-        const duration = 1500; 
-        const increment = target / (duration / 16);
-
-        function update() {
-            count += increment;
-            if (count < target) {
-                stat.innerText = Math.floor(count).toLocaleString();
-                requestAnimationFrame(update);
-            } else {
-                stat.innerText = target.toLocaleString();
-            }
-        }
-        update();
-    });
-const menuToggle = document.getElementById('menu-toggle');
-const sidebar = document.querySelector('.sidebar');
-
-menuToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('active');
-});
-    // 2. Mobile Sidebar Toggle
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const sidebar = document.querySelector('.sidebar');
+    // 1. Sidebar Toggle Logic
+    const menuBtn = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
 
     if (menuBtn) {
-        // Only show button on mobile
-        if(window.innerWidth <= 768) menuBtn.style.display = 'block';
-
-        menuBtn.addEventListener('click', () => {
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             sidebar.classList.toggle('active');
         });
     }
 
-    // Close sidebar when clicking a link (on mobile)
-    document.querySelectorAll('.nav-item').forEach(link => {
-        link.addEventListener('click', () => {
-            if(window.innerWidth <= 768) sidebar.classList.remove('active');
-        });
+    // Close when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 && !sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+            sidebar.classList.remove('active');
+        }
+    });
+
+    // 2. Stat Counter Animation
+    const stats = document.querySelectorAll('.stat');
+    stats.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-target'));
+        let current = 0;
+        const duration = 1500; 
+        const step = target / (duration / 16);
+
+        function animate() {
+            current += step;
+            if (current < target) {
+                stat.innerText = Math.floor(current).toLocaleString();
+                requestAnimationFrame(animate);
+            } else {
+                stat.innerText = target.toLocaleString();
+            }
+        }
+        animate();
     });
 });
