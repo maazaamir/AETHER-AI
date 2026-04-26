@@ -1,0 +1,136 @@
+:root {
+    --bg: #020205;
+    --sidebar-bg: #08080c;
+    --primary: #3b82f6;
+    --accent: #10b981;
+    --text: #ffffff;
+    --text-dim: #94a3b8;
+    --glass: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 255, 255, 0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+body { background-color: var(--bg); color: var(--text); display: flex; min-height: 100vh; overflow-x: hidden; }
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    position: fixed;
+    height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.sidebar-logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 50px; }
+.sidebar-logo span { color: var(--primary); }
+
+.side-nav { flex-grow: 1; display: flex; flex-direction: column; gap: 8px; }
+
+.nav-item {
+    text-decoration: none;
+    color: var(--text-dim);
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.3s;
+    display: block;
+}
+
+.nav-item.active, .nav-item:hover {
+    background: var(--glass);
+    color: var(--text);
+    border-left: 4px solid var(--primary);
+}
+
+.user-profile {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.avatar { width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; }
+
+/* Main Content */
+.main-content {
+    margin-left: 260px; /* Essential to show content next to sidebar */
+    flex-grow: 1;
+    width: calc(100% - 260px);
+    display: flex;
+    flex-direction: column;
+}
+
+.top-bar {
+    height: 80px;
+    padding: 0 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(2, 2, 5, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.search-bar input {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    width: 300px;
+    outline: none;
+}
+
+/* Dashboard Grid */
+.dashboard-grid { padding: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+
+.card { background: var(--glass); border: 1px solid var(--border); border-radius: 16px; padding: 30px; }
+.card-wide { grid-column: span 2; }
+
+/* Stats Styling */
+.stat {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--primary); /* Ensures numbers are visible */
+    margin: 10px 0;
+    display: inline-block;
+}
+
+.unit { color: var(--text-dim); font-size: 1.2rem; margin-left: 5px; }
+
+.trend { font-size: 0.85rem; color: var(--text-dim); }
+.trend.up { color: var(--accent); }
+
+/* Chart Bars */
+.chart-placeholder { height: 150px; display: flex; align-items: flex-end; gap: 8px; margin-top: 20px; }
+.bar { flex: 1; background: var(--primary); border-radius: 4px; opacity: 0.6; transition: 0.3s; }
+.bar:hover { opacity: 1; }
+
+/* Footer */
+.main-footer { margin-top: auto; padding: 40px; border-top: 1px solid var(--border); background: var(--sidebar-bg); }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+.footer-links a { display: block; color: var(--text-dim); text-decoration: none; margin-bottom: 10px; font-size: 0.9rem; }
+.footer-bottom { display: flex; justify-content: space-between; color: var(--text-dim); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
+
+/* Status Dot */
+.dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; display: inline-block; margin-right: 8px; }
+.pulse { animation: pulse 2s infinite; }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+.upgrade-btn { background: var(--primary); border: none; color: white; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .sidebar { width: 80px; padding: 40px 10px; }
+    .nav-item, .u-name, .u-rank, .sidebar-logo span { display: none; }
+    .main-content { margin-left: 80px; width: calc(100% - 80px); }
+    .dashboard-grid { grid-template-columns: 1fr 1fr; }
+}
