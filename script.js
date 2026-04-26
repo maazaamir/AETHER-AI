@@ -18,7 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         update();
     });
+const menuToggle = document.getElementById('menu-toggle');
+const sidebar = document.querySelector('.sidebar');
 
+menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+});
     // 2. Mobile Sidebar Toggle
     const menuBtn = document.getElementById('mobile-menu-btn');
     const sidebar = document.querySelector('.sidebar');
